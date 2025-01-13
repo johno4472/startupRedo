@@ -10,7 +10,7 @@
 
 ## Getting Started Notes
 
-[Getting started notes](https://github.com/webprogramming260)
+[Getting started notes](https://github.com/johno4472/startupRedo/blob/main/gettingStarted.md)
 
 ## AWS Notes
 
