@@ -32,7 +32,7 @@ sequenceDiagram
     You->>Website: New Goal
     Website-->>Friend1: Your new goal
     Website-->>Friend2: Your new goal
-    Friend1->>Website: Complete's 10 day goal report
+    Friend1->>Website: Completes 10 day goal report
     Website-->>You: Friend1 completed 10 day challenge!
     Website-->>Friend2: Friend1 completed 10 day challenge!
 ```
