@@ -26,8 +26,15 @@ Aren't you tired of setting a new goal that you're so excited about, only to see
 ```mermaid
 sequenceDiagram
     actor You
+    actor Friend1
+    actor Friend2
     actor Website
-    You->>Website: Replace this with your design
+    You->>Website: New Goal
+    Website-->>Friend1: Your new goal
+    Website-->>Friend2: Your new goal
+    Friend1->>Website: Complete's 10 day goal report
+    Website-->>You: Friend1 completed 10 day challenge!
+    Website-->>Friend2: Friend1 completed 10 day challenge!
 ```
 
 ### Key features
