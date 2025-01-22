@@ -15,6 +15,7 @@
 ## AWS Notes
 
 - Terminal command to ssh into server -> ssh -i ./winter2025keyPair.pem ubuntu@54.227.117.64 (ip address at end may change)
+- git clone https://github.com/webprogramming260/simon-css.git <- way to clone
 
 ## HTML Notes
 
