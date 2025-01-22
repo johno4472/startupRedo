@@ -74,15 +74,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - Apart from index.html, I created 4 HTML pages - create.html, review.html, report.html, and about.html
+- [x] **Proper HTML element usage** - I used and HTML form, and body, and buttons, and columns and all that in HTML
+- [x] **Links** - My github links are clearly displayed at the bottom of every page
+- [x] **Text** - On the about page, I embedded text with HTML to describe the website use
+- [x] **3rd party API placeholder** - You can see on the review page a placeholder for someone who has a habit to read 15 minutes each day 
+- [x] **Images** - You will see an image embedded in the bubble on google chrome, and on the about page
+- [x] **Login placeholder** - You can see this on the Index.HTML main page
+- [x] **DB data placeholder** - When you submit a new habit on the create page it submits that information to a database
+- [x] **WebSocket placeholder** - You will be notified on the review page every time you hit a significant milestone
 
 ## 🚀 CSS deliverable
 
