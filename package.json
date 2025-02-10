@@ -1,0 +1,23 @@
+{
+  "name": "startupredoreact",
+  "version": "1.0.0",
+  "description": "[My Notes](notes.md)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johno4472/startupRedo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johno4472/startupRedo/issues"
+  },
+  "homepage": "https://github.com/johno4472/startupRedo#readme",
+  "devDependencies": {
+    "vite": "^6.1.0"
+  }
+}
