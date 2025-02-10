@@ -99,9 +99,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - Routing between login and voting components.
+- [x] **Bundled using Vite** - I installed vite and by running "npm run dev" I call vite to bundle up everything
+- [x] **Components** - You can see that I have injected my main html from each page and my header and footer html into the react components. I have the header and footer components in app.jsx, then my router puts in the body of my page depending on which page I'm on
+- [x] **Router** - In my app.jsx file, I used the browser router in place of a main section to route between my pages. Do can see this by navigating to a page then seeing in the url that it says "/create" instead of "/create.html"
 
 ## 🚀 React part 2: Reactivity
 
