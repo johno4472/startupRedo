@@ -22,6 +22,7 @@ export default function App() {
 
       <nav>
         <menu className="main-menu">
+          <li><NavLink className="light-red-bg" to="/">Home</NavLink></li>
           <li><NavLink className="light-red-bg" to="report">Report</NavLink></li>
           <li><NavLink className="light-red-bg" to="create">Create</NavLink></li>
           <li><NavLink className="light-red-bg" to="review">Review</NavLink></li>
