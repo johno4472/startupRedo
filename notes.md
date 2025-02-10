@@ -20,3 +20,28 @@
 ## HTML Notes
 
 - ./deployFiles.sh -k <yourpemkey> -h <yourdomain> -s startup <- deploy terminal command
+
+## Node.js Notes
+- Node.js not a language, runtime that allows me to run javascript on a server
+- type 'node' into the command line to demo editing in node (code in javascript) 
+- I can make a variable accessible to anywhere in the code with global (global.luckyNum = 23")
+- Q: What is the significance of all the stuff in the package.json file?
+- Node.js forces you to use good structure in project setup
+
+## React Notes
+
+- Q: What is vite?
+- To deploy React: ./deployReact.sh -k <yourpemkey> -h consistandsee.com -s startup
+- Q: It says I need to show stubbed components of the main pieces of my application. What is a stubbed piece?
+- React is a JavaScript Library for building out user interfaces
+- React uses single page application (so all different pages loaded onto one page when called)
+- A functional component is a component that returns html to be inserted
+- JSX is HTML infused with JavaScript, like inputting variables dynamically to be displayed. This can't be read by a browser, so it's transpiled to JavaScript and HTML
+- Component LifeCycle - Mounting -> Updating -> Unmounting
+- Event listeners are waiting for user to do something, like onSubmit
+- I can type "code ." in the terminal to open my IDE
+- Use NPM to install vite as a package
+- "npm init -y" turns project into npm package
+- Q: What does the DOM represent?
+- npm run dev to open server
+- when in server, "o" + enter opens browser
