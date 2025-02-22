@@ -1,7 +1,17 @@
 import React from "react";
 import './about.css'
 
-export function About() {
+export function About(props) {
+  const [imageUrl, setImageUrl] = React.useState('');
+  const [quote, setQuote] = React.useState('Loading...');
+  const [quoteAuthor, setQuoteAuthor] = React.useState('Unknown');
+
+  React.useEffect(() => {
+    setImageUrl('quote.jpg');
+    setQuote('“Keep it simple. It is in that simplicity that you will find the peace, joy, and happiness that I have been talking about.”');
+    setQuoteAuthor('M. Russell Ballard');
+  }, []);
+
     return (
         <main className="main-about">
         <h4 className="add-spacing">Learn a little about how it all works!</h4>
@@ -24,13 +34,12 @@ export function About() {
         </div>
         <div className="info-paragraph">
           <div id="picture" className="picture-box"></div>
-          <img src="quote.jpg" alt="Consistency Quote" width="500"/>
+          <img src={imageUrl} alt="Consistency Quote" width="500"/>
         </div>
         <div className="info-paragraph">Here is your daily generated quote:
           <div className="line-of-text">
-          “Keep it simple. It is in that simplicity that you will find the peace, 
-          joy, and happiness that I have been talking about.”
-          <div className="line-of-text">- M Russel Ballard</div>
+          {quote}
+          <div className="line-of-text">{quoteAuthor}</div>
           </div>
         </div>
         </main>    
