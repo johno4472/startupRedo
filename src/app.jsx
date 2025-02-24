@@ -8,9 +8,14 @@ import { Create } from './create/create';
 import { Review } from './review/review';
 import { Report } from './report/report';
 import { About } from './about/about';
+import { AuthState } from './login/authState';
 
 
 export default function App() {
+  const [userName, setUserName] = React.useState(localStorage.getItem('username') || '')
+  const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+  const [authState, setAuthState] = React.useState(currentAuthState);
+
     return (
     <BrowserRouter>
     <div className='app bg-dark text-light'>
@@ -22,11 +27,19 @@ export default function App() {
 
       <nav>
         <menu className="main-menu">
-          <li><NavLink className="light-red-bg" to="/">Home</NavLink></li>
-          <li><NavLink className="light-red-bg" to="report">Report</NavLink></li>
-          <li><NavLink className="light-red-bg" to="create">Create</NavLink></li>
-          <li><NavLink className="light-red-bg" to="review">Review</NavLink></li>
-          <li><NavLink className="light-red-bg" to="about">About</NavLink></li>
+          <li><NavLink className="light-red-bg" to="/">Login</NavLink></li>
+          {authState === AuthState.authenticated && (
+            <li><NavLink className="light-red-bg" to="report">Report</NavLink></li>
+          )}
+          {authState === AuthState.authenticated && (
+            <li><NavLink className="light-red-bg" to="create">Create</NavLink></li>
+          )}
+          {authState === AuthState.authenticated && (
+            <li><NavLink className="light-red-bg" to="review">Review</NavLink></li>
+          )}
+          {authState === AuthState.authenticated && (
+            <li><NavLink className="light-red-bg" to="about">About</NavLink></li>
+          )}
         </menu>
       </nav>
 
