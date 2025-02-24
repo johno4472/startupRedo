@@ -131,14 +131,20 @@ button.give-space {
     margin: 1em;
 }
 
+.space-between {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
 .make-column {
-    position: absolute;
     display:flex;
     flex-direction: column;
     justify-content: space-around;
-    margin-left: 50%;
-    left: -10em;
     width: 20em; 
+    margin: 0 auto; /*Centers content horizontally*/
+    gap: 1px;
 }
 
 .add-margin {

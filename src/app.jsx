@@ -28,16 +28,16 @@ export default function App() {
       <nav>
         <menu className="main-menu">
           <li><NavLink className="light-red-bg" to="/">Login</NavLink></li>
-          {authState === AuthState.authenticated && (
+          {authState === AuthState.Authenticated && (
             <li><NavLink className="light-red-bg" to="report">Report</NavLink></li>
           )}
-          {authState === AuthState.authenticated && (
+          {authState === AuthState.Authenticated && (
             <li><NavLink className="light-red-bg" to="create">Create</NavLink></li>
           )}
-          {authState === AuthState.authenticated && (
+          {authState === AuthState.Authenticated && (
             <li><NavLink className="light-red-bg" to="review">Review</NavLink></li>
           )}
-          {authState === AuthState.authenticated && (
+          {authState === AuthState.Authenticated && (
             <li><NavLink className="light-red-bg" to="about">About</NavLink></li>
           )}
         </menu>
@@ -48,7 +48,20 @@ export default function App() {
     <header className="make-pretty"></header>
 
     <Routes>
-    <Route path='/' element={<Login />} exact />
+    <Route 
+      path='/' 
+      element={
+        <Login
+          userName={userName}
+          authState={authState}
+          onAuthChange={(userName, authState) => {
+            setAuthState(authState);
+            setUserName(userName);
+          }} 
+        />
+      } 
+      exact 
+    />
     <Route path='/create' element={<Create />} />
     <Route path='/report' element={<Report />} />
     <Route path='/about' element={<About />} />
