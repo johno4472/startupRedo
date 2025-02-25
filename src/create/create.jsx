@@ -1,32 +1,22 @@
 import React from "react";
 
-export function Create() {
+import { Created } from './created';
+import { PendingCreation } from './pendingCreation';
+import { CreatedState } from './createdState';
+
+export function Create(createdState) {
+    const [createdState, setCreatedState] = useState(CreatedState.Pending);  
+
     return (
-        <main>
-      <div className="players">
-        Enter below which daily habit you'd like to consistently pursue:
-      </div>
+      <main>
+        {createdState === CreatedState.Pending && (
+          <PendingCreation onCreate={() => setCreatedState(CreatedState.Created)}/>
+        )}
+        {createdState === CreatedState.Created && (
+          <Created onRefresh={() => setCreatedState(CreatedState.Pending)} />
+        )
 
-      <br />
-
-      <form action="javascript:addHabit()">
-        <label>Habit</label>
-        <input type="text" id="habit" placeholder="Your action here"/>
-        <button type="submit">Submit</button>
-      </form>
-
-      <br />
-
-      <div>
-        
-      </div>
-      <div>
-        <button className="give-space" type="submit" onclick="loadHabits()">See Habits</button>
-      </div>
-
-
-      <ul id="habitReview"></ul>
-      <br />
-    </main>
+        }
+      </main>
     );
 }
