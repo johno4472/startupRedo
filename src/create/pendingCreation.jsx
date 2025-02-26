@@ -2,11 +2,35 @@ import React from "react";
 
 import Button from 'react-bootstrap/Button';
 import './create.css'
+import { Habit, getHabits } from './habit.js'
 
 export function PendingCreation(props) {
-    async function createHabit() {
-        localStorage.getItem('userHabitList')
-    }
+    const [habitName, setHabitName] = React.useState('');
+      
+      // Function to save the list of habits to localStorage
+      function saveHabits(habits) {
+        localStorage.setItem("habits", JSON.stringify(habits)); // Convert the habits array to a JSON string and store it
+      }
+      
+      // Function to add a new habit
+      function addHabit() {
+        const habits = getHabits();
+        const newHabit = new Habit(habitName, new Date().toISOString().split('T')[0]);
+        habits.push(newHabit);
+        saveHabits(habits);
+        props.onCreate();
+      }
+      
+      // Function to list all habits and log them
+      function listHabits() {
+        const habits = getHabits();
+        habits.forEach(habit => {
+          console.log(`${habit.habit}: Started on ${habit.startDate}, Days going: ${habit.daysGoin}`);
+        });
+      }
+      
+
+
 
     return (
         <main>
@@ -15,10 +39,13 @@ export function PendingCreation(props) {
       </div>
 
       <br />
-
+                
       <div className="habit-entry">
-        <input type="text" id="habit" placeholder="Your action here"/>
-        <Button className="smaller-button" onClick={() => props.onCreate()}>Create</Button>
+        <input type="text" id="habit" value={habitName} 
+        onChange={(e) => setHabitName(e.target.value)}
+        placeholder="Your action here"/>
+        <br />
+        <Button className="smaller-button" onClick={() => addHabit()}>Create</Button>
         </div>
     </main>
     );

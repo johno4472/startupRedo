@@ -1,0 +1,29 @@
+.habit-entry {
+    display: flex;
+    flex-direction: column;
+    width: 20em;
+    margin: 0 auto;
+}
+
+.smaller-button {
+    width: 5em;
+    margin: 0 auto;
+}
+
+.make-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.fancy-habit {
+    margin-top: 25px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    color: greenyellow;
+    margin-bottom: 25px;;
+}
+
+.add-button {
+    width: 10em;
+    margin: 0 auto;
+    background-color: black;
+}
