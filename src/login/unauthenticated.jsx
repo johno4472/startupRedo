@@ -30,7 +30,7 @@ export function Unauthenticated(props) {
                 <div className="space-between">
                 <Button variant='primary' onClick={() => loginUser()} disabled={!userName || !password}>
                     Login
-                </Button>
+                </Button>   
                 <Button variant='secondary' onClick={() => createUser()} disabled={!userName || !password}>
                     Create
                 </Button>

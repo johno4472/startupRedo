@@ -4,8 +4,8 @@ import { Created } from './created';
 import { PendingCreation } from './pendingCreation';
 import { CreatedState } from './createdState';
 
-export function Create(createdState) {
-    const [createdState, setCreatedState] = useState(CreatedState.Pending);  
+export function Create() {
+    const [createdState, setCreatedState] = React.useState(CreatedState.Pending);  
 
     return (
       <main>

@@ -1,6 +1,12 @@
-import React from './react';
+import React from "react";
 
-export function PendingCreation() {
+import { Button } from 'react-bootstrap/Button';
+
+export function PendingCreation(props) {
+    async function createHabit() {
+        localStorage.getItem('userHabits')
+    }
+
     return (
         <main>
       <div className="players">
@@ -13,20 +19,8 @@ export function PendingCreation() {
         <label>Habit</label>
         <input type="text" id="habit" placeholder="Your action here"/>
         <button type="submit">Submit</button>
+        <Button onClick={() => props.onCreate()}>Create</Button>
       </form>
-
-      <br />
-
-      <div>
-        
-      </div>
-      <div>
-        <button className="give-space" type="submit" onclick="loadHabits()">See Habits</button>
-      </div>
-
-
-      <ul id="habitReview"></ul>
-      <br />
     </main>
     );
 }
