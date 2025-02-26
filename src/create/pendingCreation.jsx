@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap/Button';
 
 export function PendingCreation(props) {
     async function createHabit() {
-        localStorage.getItem('userHabits')
+        localStorage.getItem('userHabitList')
     }
 
     return (

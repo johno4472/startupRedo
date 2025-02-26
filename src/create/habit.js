@@ -1,7 +1,6 @@
 export class Habit {
-    constructor(habit, startDate, progress) {
+    constructor(habit, startDate) {
         this.habit = habit;
         this.startDate = startDate;
-        this.progress = progress;
     }
 }
