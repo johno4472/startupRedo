@@ -2,7 +2,7 @@ import React from "react";
 import { ProgressBar } from "react-bootstrap";
 import './review.css'
 
-import { Habit, getHabits } from './habit';
+import { Habit, getHabits } from '../habit';
 
 export function Review() {
     const [habits, setHabits] = React.useState([]);

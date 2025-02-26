@@ -2,7 +2,7 @@ import React from "react";
 
 import Button from 'react-bootstrap/Button';
 import './create.css'
-import { Habit, getHabits } from './habit.js'
+import { Habit, getHabits } from '../habit.js'
 
 export function PendingCreation(props) {
     const [habitName, setHabitName] = React.useState('');

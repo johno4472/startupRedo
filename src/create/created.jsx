@@ -1,8 +1,8 @@
 import React from "react";
 
-import './habit.js';
+import '../habit.js';
 
-import { getHabits } from './habit';
+import { getHabits } from '../habit';
 import Button from 'react-bootstrap/Button';
 
 export function Created(props) {

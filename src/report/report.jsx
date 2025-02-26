@@ -1,6 +1,19 @@
 import React from "react";
 
+import { getHabits, Habit } from '../habit.js';
+import { Unreported } from './unreported';
+import { Reported } from './reported';
+
 export function Report() {
+  const [habits, setHabits] = React.useState([]);
+
+  React.useEffect(() => {
+    setHabits(getHabits());
+  }, []);
+
+  const today = new Date();
+  const todayString = today.toISOString().split('T')[0];
+
     return (
         <main>
       <div>
@@ -11,10 +24,23 @@ export function Report() {
       <div id="habitReport"></div>
 
       <br />
+      {habits.length > 0 ? (
+                habits.map((habit, index) => {
+                  const habitLastReported = 
+                  habit.lastDayReported ? new Date(habit.lastDayReported).toISOString().split('T')[0] : null;
+                    return (
+                      <div key={index}>
+                        { habitLastReported === todayString ? (
+                          <Reported theHabit={habit} />
+                        ) : (
+                          <Unreported theHabit={habit}/>
+                        )}
+                      </div>
+                    );
+                })
+            ) : ( <p>No habits to display so far</p>
 
-      <div>
-        <input type="button" onclick="location.href='review.html';" value="Submit"/>
-      </div>
+            )}
 
       <br />
     </main>
