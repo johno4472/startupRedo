@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Button } from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button';
+import './create.css'
 
 export function PendingCreation(props) {
     async function createHabit() {
@@ -15,12 +16,10 @@ export function PendingCreation(props) {
 
       <br />
 
-      <form action="javascript:addHabit()">
-        <label>Habit</label>
+      <div className="habit-entry">
         <input type="text" id="habit" placeholder="Your action here"/>
-        <button type="submit">Submit</button>
-        <Button onClick={() => props.onCreate()}>Create</Button>
-      </form>
+        <Button className="smaller-button" onClick={() => props.onCreate()}>Create</Button>
+        </div>
     </main>
     );
 }
