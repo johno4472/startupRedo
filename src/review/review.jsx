@@ -1,20 +1,37 @@
 import React from "react";
+import { ProgressBar } from "react-bootstrap";
+import './review.css'
+
+import { Habit, getHabits } from './habit';
 
 export function Review() {
+    const [habits, setHabits] = React.useState([]);
+    
+    React.useEffect(() => {
+        setHabits(getHabits());
+    }, []);
+
     return (
-        <main>
-            <div className="players">
-                Reports of Successful Habits:
-            </div>
+        <div className='goal-review'>
+            <h3 className="center">
+                Habit Reports:
+            </h3>
             <br/>
-                <div id="habitReview"></div>
-                <label>Read 15 minutes every day</label>
-            <br/>
-        <li>
-            <progress color="yellow" id="progress" max="21" value="4"></progress>
-            <div>Progress: 4 out of 21 day(s)!</div>
-        </li>
-        <br/>
-        </main>
+            {habits.length > 0 ? (
+                habits.map((habit, index) => {
+                    const progress = (habit.score / habit.target) * 100;
+
+                    return (
+                        <div className="center" key={index}>
+                            <h4 className="center">{habit.habit}</h4>
+                            <ProgressBar className="longer-bar" now={progress} />
+                            <p className="center">{habit.score} out of {habit.target} days!</p>             
+                        </div>
+                    );
+                })
+            ) : ( <p>No habits to display so far</p>
+
+            )}
+        </div>
     );
 }

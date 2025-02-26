@@ -1,0 +1,9 @@
+.goal-review {
+    display: flex;
+    flex-direction: column;
+}
+
+.center {
+    margin: 0 auto;
+    flex-direction: column;
+}

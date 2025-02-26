@@ -6,6 +6,8 @@ import { Habit, getHabits } from './habit.js'
 
 export function PendingCreation(props) {
     const [habitName, setHabitName] = React.useState('');
+    const [targetDays, setTargetDays] = React.useState('');
+    const [score, setScore] = React.useState('')
       
       // Function to save the list of habits to localStorage
       function saveHabits(habits) {
@@ -15,7 +17,7 @@ export function PendingCreation(props) {
       // Function to add a new habit
       function addHabit() {
         const habits = getHabits();
-        const newHabit = new Habit(habitName, new Date().toISOString().split('T')[0]);
+        const newHabit = new Habit(habitName, new Date().toISOString().split('T')[0], targetDays, score);
         habits.push(newHabit);
         saveHabits(habits);
         props.onCreate();
@@ -44,6 +46,12 @@ export function PendingCreation(props) {
         <input type="text" id="habit" value={habitName} 
         onChange={(e) => setHabitName(e.target.value)}
         placeholder="Your action here"/>
+        <input type="text" id="habit" value={targetDays} 
+        onChange={(e) => setTargetDays(e.target.value)}
+        placeholder="How many days in a row"/>
+        <input type="text" id="habit" value={score} 
+        onChange={(e) => setScore(e.target.value)}
+        placeholder="Enter score (less than target)"/>
         <br />
         <Button className="smaller-button" onClick={() => addHabit()}>Create</Button>
         </div>

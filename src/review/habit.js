@@ -13,7 +13,7 @@ export class Habit {
 
 function getHabits() {
     const habits = localStorage.getItem("habits");
-    return habits ? JSON.parse(habits).map(habit => new Habit(habit.habit, habit.startDate)) : [];
+    return habits ? JSON.parse(habits).map(habit => new Habit(habit.habit, habit.startDate, habit.target, habit.score)) : [];
 }
 
 export { getHabits };
