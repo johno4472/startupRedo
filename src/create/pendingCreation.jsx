@@ -21,16 +21,7 @@ export function PendingCreation(props) {
         habits.push(newHabit);
         saveHabits(habits);
         props.onCreate();
-      }
-      
-      // Function to list all habits and log them
-      function listHabits() {
-        const habits = getHabits();
-        habits.forEach(habit => {
-          console.log(`${habit.habit}: Started on ${habit.startDate}, Days going: ${habit.daysGoin}`);
-        });
-      }
-      
+      }     
 
 
 
@@ -51,7 +42,7 @@ export function PendingCreation(props) {
         placeholder="How many days in a row"/>
         <input type="text" id="habit" value={score} 
         onChange={(e) => setScore(e.target.value)}
-        placeholder="Enter score (less than target)"/>
+        placeholder="Enter score less than target (Usually 0)"/>
         <br />
         <Button className="smaller-button" onClick={() => addHabit()}>Create</Button>
         </div>

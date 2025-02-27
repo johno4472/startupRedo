@@ -1,21 +1,27 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import { Habit, updateHabit } from '../habit.js';
+import { updateHabit } from '../habit.js';
 import { Reported } from './reported';
 
 export function Unreported(props) {
     const [reportVal, setReportVal] = React.useState('');
-    const [isReported, setIsReported] = React.useState(false);
+    console.log("this here: ", props.theHabit.reportedToday);
+    const [isReported, setIsReported] = React.useState(props.theHabit.reportedToday);
     const [currentHabit, setCurrentHabit] = React.useState(props.theHabit);
 
     function udpateReport() {
         if (reportVal.toLowerCase() === 'y') {
-            setCurrentHabit(props.theHabit.reportToday());
+            const tempHabit = props.theHabit.updateScoreBy(1);
+            setCurrentHabit(tempHabit.reportToday());
+            updateHabit(currentHabit);
+            setIsReported(true);
+        } else if (reportVal.toLowerCase() === 'n') {
+            const tempHabit = props.theHabit.updateScoreBy(-2);
+            setCurrentHabit(tempHabit.reportToday());
             updateHabit(currentHabit);
             setIsReported(true);
         }
     }
-    console.log(props.theHabit.habitName);
 
     return(
         <div>

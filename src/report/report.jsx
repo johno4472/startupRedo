@@ -8,7 +8,7 @@ export function Report() {
   const [habits, setHabits] = React.useState([]);
 
   React.useEffect(() => {
-    setHabits(getHabits());
+      setHabits(getHabits())
   }, []);
 
   const today = new Date();
@@ -31,7 +31,7 @@ export function Report() {
                     return (
                       <div key={index}>
                         { habitLastReported === todayString ? (
-                          <Reported theHabit={habit} />
+                          <Reported theHabit={habit}/>
                         ) : (
                           <Unreported theHabit={habit}/>
                         )}

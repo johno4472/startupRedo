@@ -6,6 +6,7 @@ export class Habit {
     reportToday() {
         this.reportedToday = true;
         this.lastDayReported = new Date();
+        console.log("Look over here", this);
         return this;
     }
 
@@ -14,18 +15,35 @@ export class Habit {
         this.startDate = updatedHabit.startDate;
         this.target = updatedHabit.target;
         this.score = updatedHabit.score;
-        this.reportedDay = updatedHabit.reportedDay;
+        this.reportedToday = updatedHabit.reportedToday;
         this.lastDayReported = updatedHabit.lastDayReported;
         return this;
     }
 
-    constructor(habit, startDate, target, score) {
+    updateScoreBy(num) {
+        const tempScore = parseInt(this.score);
+        const newScore = tempScore + num;
+        if (newScore < 0) {
+            this.score = 0;
+        } else {
+            this.score = newScore;
+        }
+        return this;
+    }
+
+    constructor(habit, startDate, target, score, reportedToday = false, lastDayReported = null) {
         this.habit = habit;
         this.startDate = startDate;
         this.target = target;
         this.score = score;
-        this.reportedToday = false;
-        this.lastDayReported = null;
+        this.reportedToday = reportedToday;
+        if (lastDayReported === null) {
+            const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1)
+        this.lastDayReported = yesterday;
+        } else {
+            this.lastDayReported = lastDayReported;
+        }
     }
 }
 
@@ -45,9 +63,10 @@ function updateHabit(myHabit) {
     const habitNameToUpdate = myHabit.getHabitName();
 
     const habitIndex = habits.findIndex(habit => habit.getHabitName() === habitNameToUpdate);
-    console.log(habitIndex);
     habits[habitIndex] = habits[habitIndex].updateHabitValue(myHabit);
-    console.log(habits);
+    console.log("Habittt", myHabit);
+    console.log("Heeeere: ", habits[habitIndex].updateHabitValue(myHabit));
+    console.log("final countdown", habits);
     storeHabits(habits);
 
 }
