@@ -107,8 +107,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - You can now create a habit, review its progress, and report on the habit (only once per day (completing the habit adds one day, failing removes 2))
+- [x] **Hooks** - I used useState to implement reactivity on my create, login, review, and report components. The useState helped me update habits, and using useEffect helped me implement functions, like pulling the habit array from local storage, before rendering HTML
 
 ## 🚀 Service deliverable
 
