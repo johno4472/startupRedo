@@ -45,3 +45,10 @@
 - Q: What does the DOM represent?
 - npm run dev to open server
 - when in server, "o" + enter opens browser
+
+## Service Notes
+
+- To run server, go to server root directory and run node index.js
+1. Add service directory
+2. Set up npm project (with "npm init -y") and install express (with "npm install express") in service directory root
+
