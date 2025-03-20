@@ -53,4 +53,5 @@
 2. Set up npm project (with "npm init -y") and install express (with "npm install express") in service directory root
 3. Create index.js in service directory and populate with basic code to launch the server and do a default endpoint to accept all get requests
 4. Do an npm install for cookie-parser, uuid, and bcrypt (to track authentication with cookies represented by a UUID, created after hashing a password with bcrypt), and import those to index.js
-
+5. Add code so express automatically parses all JSON
+6. 
