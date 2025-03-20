@@ -55,4 +55,4 @@
 4. Do an npm install for cookie-parser, uuid, and bcrypt (to track authentication with cookies represented by a UUID, created after hashing a password with bcrypt), and import those to index.js
 5. Add code so express automatically parses all JSON
 6. Create Memory Data Structures to pull from (username, habits, logLevel)
-7. 
+7. Create a router for service endpoints (giving them prefix of api) 
