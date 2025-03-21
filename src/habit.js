@@ -47,8 +47,12 @@ export class Habit {
     }
 }
 
-function storeHabits(habits) {
-    localStorage.setItem("habits", JSON.stringify(habits));
+async function storeHabits(habits) {
+    await fetch('api/habits', {
+        method: 'GET',
+        headers: { 'content/type': 'application/json'},
+        body: JSON.stringify(habits)
+      });
 }
 
 function getHabits() {
