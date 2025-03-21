@@ -8,8 +8,14 @@ export function About(props) {
 
   React.useEffect(() => {
     setImageUrl('quote.jpg');
-    setQuote('“Keep it simple. It is in that simplicity that you will find the peace, joy, and happiness that I have been talking about.”');
-    setQuoteAuthor('M. Russell Ballard');
+    
+    fetch('https://quote.cs260.click')
+      .then((response) => response.json())
+      .then((data) => {
+        setQuote(data.quote);
+        setQuoteAuthor(data.author);
+      })
+      .catch();
   }, []);
 
     return (
