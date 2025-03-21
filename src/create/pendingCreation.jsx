@@ -12,7 +12,7 @@ export function PendingCreation(props) {
       // Function to save the list of habits to localStorage
       async function saveHabits(habits) {
         await fetch('api/habits', {
-          method: 'GET',
+          method: 'POST',
           headers: { 'content/type': 'application/json'},
           body: JSON.stringify(habits)
         });

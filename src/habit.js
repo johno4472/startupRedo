@@ -49,7 +49,7 @@ export class Habit {
 
 async function storeHabits(habits) {
     await fetch('api/habits', {
-        method: 'GET',
+        method: 'POST',
         headers: { 'content/type': 'application/json'},
         body: JSON.stringify(habits)
       });
