@@ -10,8 +10,12 @@ export function PendingCreation(props) {
     const [score, setScore] = React.useState('')
       
       // Function to save the list of habits to localStorage
-      function saveHabits(habits) {
-        localStorage.setItem("habits", JSON.stringify(habits)); // Convert the habits array to a JSON string and store it
+      async function saveHabits(habits) {
+        await fetch('api/habits', {
+          method: 'GET',
+          headers: { 'content/type': 'application/json'},
+          body: JSON.stringify(habits)
+        });
       }
       
       // Function to add a new habit
