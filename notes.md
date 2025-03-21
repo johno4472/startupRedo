@@ -58,3 +58,5 @@
 7. Create a router for service endpoints (giving them prefix of api) 
 8. Get rid of placeholder endpoint and set framework for necessary endpoints (login, create, logout, add a habit, update habits, get habits)
 9. Add helper functions used/called by endpoint code
+10. Add Middleware function "verifyAuth" to make sure the secured endpoints can only be accessed by those with a cookie
+11. Add line of code in service to make sure we serve static files from the public directory
