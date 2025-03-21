@@ -55,10 +55,13 @@ async function storeHabits(habits) {
       });
 }
 
-function getHabits() {
-    const habits = localStorage.getItem("habits");
-    return habits ? JSON.parse(habits).map(habit => 
-        new Habit(habit.habit, habit.startDate, habit.target, habit.score, habit.reportedToday, habit.lastDayReported)) : [];
+async function getHabits() {
+    fetch('/api/scores')
+      .then((response) => response.json())
+      .then((habits) => {
+        return habits ? JSON.parse(habits).map(habit => 
+            new Habit(habit.habit, habit.startDate, habit.target, habit.score, habit.reportedToday, habit.lastDayReported)) : [];
+      });
 }
 
 function updateHabit(myHabit) {
