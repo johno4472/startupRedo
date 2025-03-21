@@ -57,3 +57,4 @@
 6. Create Memory Data Structures to pull from (username, habits, logLevel)
 7. Create a router for service endpoints (giving them prefix of api) 
 8. Get rid of placeholder endpoint and set framework for necessary endpoints (login, create, logout, add a habit, update habits, get habits)
+9. Add helper functions used/called by endpoint code
