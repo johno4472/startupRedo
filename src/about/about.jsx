@@ -9,7 +9,10 @@ export function About(props) {
   React.useEffect(() => {
     setImageUrl('quote.jpg');
     
-    fetch('https://quote.cs260.click')
+    fetch('https://quote.cs260.click' {
+      method: 'GET',
+      header: 'X-Api-Key': 'BU7qBhw8PUVSh1Wt2b07fg==xtLb22CblX98uxN4',
+    })
       .then((response) => response.json())
       .then((data) => {
         setQuote(data.quote);
