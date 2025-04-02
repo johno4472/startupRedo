@@ -5,21 +5,23 @@ import { MessageDialog } from './messageDialog';
 
 export function Unauthenticated(props) {
     const [userName, setUserName] = React.useState(props.userName);
-    const [password, setPassword] = React.useState('');
+    const [password, setPassword] = React.useState(''); 
     const [displayError, setDisplayError] = React.useState(null);
 
     async function loginUser() {
-        loginOrCreate('/api/auth/login');
+        console.log("LoginUser Function")
+        loginOrCreate(`/api/auth/login`);
     }
 
     async function createUser() {
-        loginOrCreate('/api/auth/create');
+        loginOrCreate(`/api/auth/create`);
     }
 
     async function loginOrCreate(endpoint) {
+        console.log("Fetching...");
         const response = await fetch(endpoint, {
           method: 'post',
-          body: JSON.stringify({ email: userName, password: password }),
+          body: JSON.stringify({ userName: userName, password: password }),
           headers: {
             'Content-type': 'application/json; charset=UTF-8',
           },
@@ -28,6 +30,7 @@ export function Unauthenticated(props) {
           localStorage.setItem('userName', userName);
           props.onLogin(userName);
         } else {
+          console.log("Did nooooot verify");
           const body = await response.json();
           setDisplayError(`⚠ Error: ${body.msg}`);
         }
@@ -51,9 +54,10 @@ export function Unauthenticated(props) {
                 </Button>
                 </div>
             </div>
+            {/* This is a comment in JSX 
             {console.log("Display error: ", displayError)}
             
-                <MessageDialog message={displayError} onHide={() => setDisplayError(null)} />
+                <MessageDialog message={displayError} onHide={() => setDisplayError(null)} />*/}
             
         </>
     );
