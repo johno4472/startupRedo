@@ -27,7 +27,7 @@ export function Unauthenticated(props) {
           },
         });
         if (response?.status === 200) {
-          localStorage.setItem('userName', userName);
+          localStorage.setItem('userName', response.body.userName);
           props.onLogin(userName);
         } else {
           console.log("Did nooooot verify");

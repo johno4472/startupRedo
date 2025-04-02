@@ -19,15 +19,25 @@ export function PendingCreation(props) {
       }
       
       // Function to add a new habit
-      function addHabit() {
-        const habits = getHabits();
-        const newHabit = new Habit(habitName, new Date().toISOString().split('T')[0], targetDays, score);
-        habits.push(newHabit);
-        saveHabits(habits);
-        props.onCreate();
+      async function addHabit(endpoint) {
+        const response = await fetch(endpoint, {
+          method: 'post',
+          body: JSON.stringify({habit: 
+            new Habit(habitName, new Date().toISOString().split('T')[0], targetDays, score) }),
+          headers: {
+            'Content_type': 'application/json; charset=UTF-8',
+          },
+        });
+        if (response?.status === 200) {
+          props.onCreate();
+        } else {
+          console.log("Failed to post new habit")
+        }
+        //const habits = getHabits();
+        //const newHabit = new Habit(habitName, new Date().toISOString().split('T')[0], targetDays, score);
+        //habits.push(newHabit);
+        //saveHabits(habits);
       }     
-
-
 
     return (
         <main>
@@ -48,7 +58,7 @@ export function PendingCreation(props) {
         onChange={(e) => setScore(e.target.value)}
         placeholder="Enter score less than target (Usually 0)"/>
         <br />
-        <Button className="smaller-button" onClick={() => addHabit()}>Create</Button>
+        <Button className="smaller-button" onClick={() => addHabit(`/api/habit`)}>Create</Button>
         </div>
     </main>
     );
