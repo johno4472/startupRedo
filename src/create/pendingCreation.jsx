@@ -20,15 +20,17 @@ export function PendingCreation(props) {
       
       // Function to add a new habit
       async function addHabit(endpoint) {
+        let tempHabit = new Habit(habitName, new Date().toISOString().split('T')[0], targetDays, score);
+        console.log(tempHabit);
         const response = await fetch(endpoint, {
           method: 'post',
-          body: JSON.stringify({habit: 
-            new Habit(habitName, new Date().toISOString().split('T')[0], targetDays, score) }),
           headers: {
-            'Content_type': 'application/json; charset=UTF-8',
+            'Content-type': 'application/json',
           },
+          body: JSON.stringify({habit: tempHabit}),
         });
         if (response?.status === 200) {
+          let myHabits = response.habits;
           props.onCreate();
         } else {
           console.log("Failed to post new habit")

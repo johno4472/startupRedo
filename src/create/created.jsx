@@ -9,11 +9,16 @@ export function Created(props) {
     const [habitName, setHabitName] = React.useState('');
     
     React.useEffect(() => {
-        const habits = getHabits();
-        if (habits.length > 0) {
-            const lastHabit = habits[habits.length - 1];
-            setHabitName(lastHabit.getHabitName()); // Set the name of the first habit
-        }
+        getHabits()
+        .then((response) => {
+            console.log("Response: ", response);
+            setHabitName(response[response.length - 1].getHabitName());
+        });
+        //console.log("Habits got in created: ", habits);
+        //if (habits.length > 0) {
+        //    const lastHabit = habits[habits.length - 1];
+        //    setHabitName(lastHabit.getHabitName()); // Set the name of the first habit
+        //}
     }, []);
 
 

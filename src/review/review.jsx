@@ -7,7 +7,7 @@ import { Habit, getHabits } from '../habit';
 export function Review() {
     const [habits, setHabits] = React.useState([]);
     
-    React.useEffect(() => {
+    React.useEffect(() => { 
         setHabits(getHabits());
     }, []);
 

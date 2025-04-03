@@ -3,6 +3,12 @@ export class Habit {
         return this.habit;
     }
 
+    habitToString() {
+        string = "Habit: ";
+        string += this.habit;
+        return string;
+    }
+
     reportToday() {
         this.reportedToday = true;
         this.lastDayReported = new Date();
@@ -56,12 +62,26 @@ async function storeHabits(habits) {
 }
 
 async function getHabits() {
-    fetch('/api/scores')
-      .then((response) => response.json())
-      .then((habits) => {
-        return habits ? JSON.parse(habits).map(habit => 
-            new Habit(habit.habit, habit.startDate, habit.target, habit.score, habit.reportedToday, habit.lastDayReported)) : [];
-      });
+    const response = await fetch('/api/habits', {
+        method: 'get',
+        headers: {
+            'Content-type': 'application/json',
+        },
+    });
+    if (response?.status === 200) {
+        let habits = await response.json();
+        console.log("Returned habits: ", habits);
+        console.log(habits.length);
+        habits = habits.map(habit => 
+            new Habit(habit.habit, habit.startDate, habit.target, habit.score, habit.reportedToday, habit.lastDayReported)
+        );
+        console.log("Parsed habits: ", habits);
+        return habits;
+        //.map(habit => 
+        //    new Habit(habit.habit, habit.startDate, habit.target, habit.score, habit.reportedToday, habit.lastDayReported));
+    } else {
+        console.log("Did not get habits correctly");
+    }
 }
 
 function updateHabit(myHabit) {
