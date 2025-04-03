@@ -54,11 +54,14 @@ export class Habit {
 }
 
 async function storeHabits(habits) {
-    await fetch('api/habits', {
-        method: 'POST',
-        headers: { 'content/type': 'application/json'},
+    const response = await fetch('api/habits', {
+        method: 'post',
+        headers: { 'content-type': 'application/json'},
         body: JSON.stringify(habits)
       });
+      if (response?.status === 200) {
+        console.log("All habits stored again!");
+      }
 }
 
 async function getHabits() {
@@ -84,8 +87,8 @@ async function getHabits() {
     }
 }
 
-function updateHabit(myHabit) {
-    const habits = getHabits();
+async function updateHabit(myHabit) {
+    let habits = await getHabits()
     console.log(habits);
     const habitNameToUpdate = myHabit.getHabitName();
 

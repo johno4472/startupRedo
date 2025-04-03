@@ -26,7 +26,7 @@ export function Created(props) {
         <div className="make-column">
             <div>Woohoo! You have successfully submitted the following habit:</div>
             <h2 className="fancy-habit">{habitName ? habitName : 'No Habit Found'}</h2>
-            <Button className="add-button" onClick={() => props.onRefresh}>Add another habit</Button>
+            <Button className="add-button" onClick={() => props.onRefresh()}>Add another habit</Button>
         </div>
     );
 }

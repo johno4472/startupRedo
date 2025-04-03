@@ -2,23 +2,24 @@ import React from "react";
 import './about.css'
 
 export function About(props) {
-  const [imageUrl, setImageUrl] = React.useState('');
+  const [imageUrl, setImageUrl] = React.useState(null);
   const [quote, setQuote] = React.useState('Loading...');
   const [quoteAuthor, setQuoteAuthor] = React.useState('Unknown');
 
   React.useEffect(() => {
     setImageUrl('quote.jpg');
     
-    fetch('https://quote.cs260.click', {
+    fetch('https://quote.cs260.click/?api_key=BU7qBhw8PUVSh1Wt2b07fg==xtLb22CblX98uxN4', {
       method: 'GET',
-      headers: {
-        'X-Api-Key': 'BU7qBhw8PUVSh1Wt2b07fg==xtLb22CblX98uxN4',
-      },
+      //headers: {
+      //  'X-Api-Key': 'BU7qBhw8PUVSh1Wt2b07fg==xtLb22CblX98uxN4',
+      //},
     })
       .then((response) => response.json())
       .then((data) => {
         setQuote(data.quote);
         setQuoteAuthor(data.author);
+        console.log("Quote: ", data);
       })
       .catch();
   }, []);

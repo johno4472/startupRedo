@@ -8,7 +8,10 @@ export function Review() {
     const [habits, setHabits] = React.useState([]);
     
     React.useEffect(() => { 
-        setHabits(getHabits());
+        getHabits()
+        .then((response) => {
+            setHabits(response);
+        })
     }, []);
 
     return (
