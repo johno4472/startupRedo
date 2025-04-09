@@ -114,11 +114,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - Used this, especially for help with endpoints
+- [x] **Static middleware for frontend** - Used middleware to call routers in service layer
+- [x] **Calls to third party endpoints** - Used this to generate a quote in the about page (It pops up in the white space at the bottom... I'm still working on making that page pretty)
+- [x] **Backend service endpoints** - Used backend endpoints to access information stored on the server.
+- [x] **Frontend calls service endpoints** - Yes. You will see several calls to endpoints wehre there used to be functions to access from local storage.
 
 ## 🚀 DB/Login deliverable
 
