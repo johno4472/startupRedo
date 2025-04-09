@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const app = express();
-const { Habit } = require('../src/habit');
+//const { Habit } = require('../src/habit');
 //import { Habit } from '../src/habit.js';
 
 
