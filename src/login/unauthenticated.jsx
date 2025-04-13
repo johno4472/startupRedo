@@ -19,6 +19,7 @@ export function Unauthenticated(props) {
 
     async function loginOrCreate(endpoint) {
         console.log("Fetching...");
+        console.log("Username: ", userName, "password: ", password);
         const response = await fetch(endpoint, {
           method: 'post',
           body: JSON.stringify({ userName: userName, password: password }),
@@ -26,6 +27,7 @@ export function Unauthenticated(props) {
             'Content-type': 'application/json; charset=UTF-8',
           },
         });
+        
         if (response?.status === 200) {
           localStorage.setItem('userName', response.body.userName);
           props.onLogin(userName);

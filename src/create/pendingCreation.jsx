@@ -13,7 +13,7 @@ export function PendingCreation(props) {
       async function saveHabits(habits) {
         await fetch('api/habits', {
           method: 'POST',
-          headers: { 'content/type': 'application/json'},
+          headers: { 'Content-Type': 'application/json'},
           body: JSON.stringify(habits)
         });
       }
@@ -24,13 +24,13 @@ export function PendingCreation(props) {
         console.log(tempHabit);
         const response = await fetch(endpoint, {
           method: 'post',
+          credentials: 'include',
           headers: {
-            'Content-type': 'application/json',
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify({habit: tempHabit}),
+          body: JSON.stringify(tempHabit),
         });
         if (response?.status === 200) {
-          let myHabits = response.habits;
           props.onCreate();
         } else {
           console.log("Failed to post new habit")

@@ -8,7 +8,7 @@ import { Create } from './create/create';
 import { Review } from './review/review';
 import { Report } from './report/report';
 import { About } from './about/about';
-import { AuthState } from './login/authState';
+import { AuthState } from './authState';
 
 
 export default function App() {

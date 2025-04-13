@@ -48,7 +48,7 @@ export function About(props) {
           <div id="picture" className="picture-box"></div>
           <img src={imageUrl} alt="Consistency Quote" width="500"/>
         </div>
-        <div className="info-paragraph">Here is your daily generated quote:
+        <div className="info-paragraph special-quote">Here is your daily generated quote:
           <div className="line-of-text">
           {quote}
           <div className="line-of-text">{quoteAuthor}</div>

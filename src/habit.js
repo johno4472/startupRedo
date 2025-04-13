@@ -56,8 +56,9 @@ export class Habit {
 async function storeHabits(habits) {
     const response = await fetch('api/habits', {
         method: 'post',
+        credentials: 'include',
         headers: { 'content-type': 'application/json'},
-        body: JSON.stringify(habits)
+        body: JSON.stringify(habits),
       });
       if (response?.status === 200) {
         console.log("All habits stored again!");
@@ -67,14 +68,15 @@ async function storeHabits(habits) {
 async function getHabits() {
     const response = await fetch('/api/habits', {
         method: 'get',
+        credentials: 'include',
         headers: {
             'Content-type': 'application/json',
         },
     });
     if (response?.status === 200) {
-        let habits = await response.json();
+        let responseJson = await response.json()
+        let habits = responseJson.habits;
         console.log("Returned habits: ", habits);
-        console.log(habits.length);
         habits = habits.map(habit => 
             new Habit(habit.habit, habit.startDate, habit.target, habit.score, habit.reportedToday, habit.lastDayReported)
         );
