@@ -16,40 +16,39 @@ async function addHabitByUser(user, jsonHabit) {
     let habits = userInfo.habits;
     habits.append(jsonHabit);
     userInfo.habits = habits;
-    await collection.insertOne(userInfo);
+    await replace(userInfo);
 }
 
 //update habit by user
 async function updateHabitByUser(user, jsonHabit) {
-    let userInfo = getUserInfo(user);
+    let userInfo = await getUserInfo(user);
     let habits = userInfo.habits;
     let index = habits.find(jsonHabit.habitName)
     habits[index] = jsonHabit;
     userInfo.habits = habits;
-    await collection.insertOne(userInfo);
+    await replace(userInfo);
 }
 
 //get habits by user
 async function getHabitsByUser(user) {
-    let userInfo = getUserInfo(user);
+    let userInfo = await getUserInfo(user);
     return userInfo.habits;
 }
 
 async function getUserInfo(user) {
     const query = { username: user };
-    const cursor = collection.findOne(query);
-    const userInfo = await cursor.toArray();
+    const userInfo = collection.findOne(query);
     return userInfo;
 }
 
 async function createAuth(username, password, auth) {
-    let userInfo = getUserInfo(user);
-    cursor.authToken = auth;
-    await collection.insertOne(cursor);
+    let userInfo = await getUserInfo(user);
+    userInfo.authToken = auth;
+    await replace(userInfo);
 }
 
 async function verifyAuth(username, auth) {
-    let userInfo = getUserInfo(user);
+    let userInfo = await getUserInfo(user);
     if ( auth == userInfo.auth ) {
         return 1;
     } else {
@@ -66,10 +65,15 @@ async function createUser(username, password, auth){
     await collection.insertOne(user);
 }
 
-async function deleteAuth() {
-    const query = { username: user };
-    let cursor = collection.find(query);
-    cursor.authToken = null;
+async function replace(userInfo) {
+    await collection.deleteOne({ _id: userInfo._id });
+    await collection.insertOne(userInfo);
+}
+
+async function deleteAuth(username) {
+    let userInfo = getUserInfo(username);
+    userInfo.authToken = null;
+    await replace(userInfo);
 }
 
 async function main() {
