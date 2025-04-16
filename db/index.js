@@ -49,7 +49,15 @@ async function createAuth(username, password, auth) {
     await collection.insertOne(cursor);
 }
 
-
+async function verifyAuth(username, auth) {
+    const query = { username: user };
+    const cursor = collection.find(query)
+    if ( auth == cursor.auth ) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
 
 async function createUser(username, password, auth){
     const user = {
