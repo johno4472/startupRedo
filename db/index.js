@@ -12,29 +12,57 @@ const collection = db.collection('habits');
 //add habit by user
 async function addHabitByUser(user, jsonHabit) {
     //insert
-    let userInfo = getByUser(user);
+    let userInfo = getUserInfo(user);
     let habits = userInfo.habits;
     habits.append(jsonHabit);
     userInfo.habits = habits;
-    await collection.insertOne(habits);
+    await collection.insertOne(userInfo);
 }
 
 //update habit by user
 async function updateHabitByUser(user, jsonHabit) {
-    let userInfo = getByUser(user);
+    let userInfo = getUserInfo(user);
     let habits = userInfo.habits;
     let index = habits.find(jsonHabit.habitName)
     habits[index] = jsonHabit;
     userInfo.habits = habits;
-    await collection.insertOne(habits);
+    await collection.insertOne(userInfo);
 }
 
 //get habits by user
-async function getByUser(user) {
-    const query = { username: user }
+async function getHabitsByUser(user) {
+    let userInfo = getUserInfo(user);
+    return userInfo.habits;
+}
+
+async function getUserInfo(user) {
+    const query = { username: user };
     const cursor = collection.find(query);
     const userInfo = await cursor.toArray();
     return userInfo;
+}
+
+async function createAuth(username, password, auth) {
+    const query = { username: user };
+    let cursor = collection.find(query);
+    cursor.authToken = auth;
+    await collection.insertOne(cursor);
+}
+
+
+
+async function createUser(username, password, auth){
+    const user = {
+        name: username,
+        password: password,
+        authToken: auth,
+    }
+}
+
+async function deleteAuth() {
+    const query = { username: user };
+    let cursor = collection.find(query);
+    cursor.authToken = null;
 }
 
 async function main() {
