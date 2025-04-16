@@ -12,12 +12,10 @@ const collection = db.collection('habits');
 //add habit by user
 async function addHabitByUser(user, jsonHabit) {
     //insert
-    const house = {
-        name: 'Beachfront views',
-        summary: 'From your bedroom to the beach, no shoes required',
-        property_type: 'Condo',
-        beds: 1,
-    };
+    let userInfo = getByUser(user);
+    let habits = userInfo.habits;
+    habits.append(jsonHabit);
+    userInfo.habits = habits;
     await collection.insertOne(habits);
 }
 
