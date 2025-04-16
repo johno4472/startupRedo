@@ -14,7 +14,7 @@ async function addHabitByUser(user, jsonHabit) {
     //insert
     let userInfo = await getUserInfo(user);
     let habits = userInfo.habits;
-    habits.append(jsonHabit);
+    habits.push(jsonHabit);
     userInfo.habits = habits;
     await replace(userInfo);
 }
@@ -23,32 +23,32 @@ async function addHabitByUser(user, jsonHabit) {
 async function updateHabitByUser(user, jsonHabit) {
     let userInfo = await getUserInfo(user);
     let habits = userInfo.habits;
-    let index = habits.find(jsonHabit.habitName)
+    let index = habits.findIndex(h => h.habitName === jsonHabit.habitName);
     habits[index] = jsonHabit;
     userInfo.habits = habits;
     await replace(userInfo);
 }
 
 //get habits by user
-async function getHabitsByUser(user) {
-    let userInfo = await getUserInfo(user);
+async function getHabitsByUser(username) {
+    let userInfo = await getUserInfo(username);
     return userInfo.habits;
 }
 
-async function getUserInfo(user) {
-    const query = { username: user };
+async function getUserInfo(username) {
+    const query = { username: username };
     const userInfo = collection.findOne(query);
     return userInfo;
 }
 
 async function createAuth(username, password, auth) {
-    let userInfo = await getUserInfo(user);
+    let userInfo = await getUserInfo(username);
     userInfo.authToken = auth;
     await replace(userInfo);
 }
 
 async function verifyAuth(username, auth) {
-    let userInfo = await getUserInfo(user);
+    let userInfo = await getUserInfo(username);
     if ( auth == userInfo.auth ) {
         return 1;
     } else {
@@ -58,20 +58,20 @@ async function verifyAuth(username, auth) {
 
 async function createUser(username, password, auth){
     const user = {
-        name: username,
+        username: username,
         password: password,
         authToken: auth,
+        habits: {},
     }
     await collection.insertOne(user);
 }
 
 async function replace(userInfo) {
-    await collection.deleteOne({ _id: userInfo._id });
-    await collection.insertOne(userInfo);
+    await collection.replaceOne({ _id: userInfo._id }, userInfo);
 }
 
 async function deleteAuth(username) {
-    let userInfo = getUserInfo(username);
+    let userInfo = await getUserInfo(username);
     userInfo.authToken = null;
     await replace(userInfo);
 }
