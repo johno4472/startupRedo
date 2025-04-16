@@ -20,6 +20,14 @@ async function addHabitByUser(user, jsonHabit) {
 }
 
 //update habit by user
+async function updateHabitByUser(user, jsonHabit) {
+    let userInfo = getByUser(user);
+    let habits = userInfo.habits;
+    let index = habits.find(jsonHabit.habitName)
+    habits[index] = jsonHabit;
+    userInfo.habits = habits;
+    await collection.insertOne(habits);
+}
 
 //get habits by user
 async function getByUser(user) {
