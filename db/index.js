@@ -12,7 +12,7 @@ const collection = db.collection('habits');
 //add habit by user
 async function addHabitByUser(user, jsonHabit) {
     //insert
-    let userInfo = getUserInfo(user);
+    let userInfo = await getUserInfo(user);
     let habits = userInfo.habits;
     habits.append(jsonHabit);
     userInfo.habits = habits;
@@ -37,22 +37,20 @@ async function getHabitsByUser(user) {
 
 async function getUserInfo(user) {
     const query = { username: user };
-    const cursor = collection.find(query);
+    const cursor = collection.findOne(query);
     const userInfo = await cursor.toArray();
     return userInfo;
 }
 
 async function createAuth(username, password, auth) {
-    const query = { username: user };
-    let cursor = collection.find(query);
+    let userInfo = getUserInfo(user);
     cursor.authToken = auth;
     await collection.insertOne(cursor);
 }
 
 async function verifyAuth(username, auth) {
-    const query = { username: user };
-    const cursor = collection.find(query)
-    if ( auth == cursor.auth ) {
+    let userInfo = getUserInfo(user);
+    if ( auth == userInfo.auth ) {
         return 1;
     } else {
         return 0;
@@ -65,6 +63,7 @@ async function createUser(username, password, auth){
         password: password,
         authToken: auth,
     }
+    await collection.insertOne(user);
 }
 
 async function deleteAuth() {
