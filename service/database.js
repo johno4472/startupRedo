@@ -1,5 +1,6 @@
+
 const { MongoClient } = require('mongodb');
-const config = require('dbConfig.json');
+const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 
@@ -10,7 +11,7 @@ const collection = db.collection('user');
 //i need a few different commands
 
 //add habit by user
-export async function addHabitByUser(username, jsonHabit) {
+async function addHabitByUser(username, jsonHabit) {
     //insert
     /*let userInfo = await getUserInfo(username);
     let habits = userInfo.habits;
@@ -24,35 +25,39 @@ export async function addHabitByUser(username, jsonHabit) {
 }
 
 //update habit by user
-export async function updateHabitByUser(username, jsonHabit) {
+async function updateHabitByUser(username, jsonHabit) {
     let userInfo = await getUserInfo(username);
-    let habits = userInfo.habits;
-    let index = habits.findIndex(h => h.habitName === jsonHabit.habitName);
-    if ( index < 0 ) {
-        throw new Error(`Habit "${jsonHabit.habitName}" not found for user ${username}`);
-    }
-    habits[index] = jsonHabit;
-    userInfo.habits = habits;
+    console.log("User Info: ", userInfo);
+    //let habits = userInfo.habits;
+    //let index = habits.findIndex(h => h.habitName === jsonHabit.habitName);
+    //if ( index < 0 ) {
+    //    throw new Error(`Habit "${jsonHabit.habitName}" not found for user ${username}`);
+    //}
+    //habits[index] = jsonHabit;
+    //console.log("Index: ", index);
+    //console.log("json habit: ", jsonHabit);
+    //userInfo.habits = jsonHabit;
+    //console.log(userInfo);
     //await replace(userInfo);
     await collection.updateOne(
         { username },
-        { $set: { habits: habits } }
+        { $set: { habits: jsonHabit } }
       );
 }
 
 //get habits by user
-export async function getHabitsByUser(username) {
+async function getHabitsByUser(username) {
     let userInfo = await getUserInfo(username);
     return userInfo.habits;
 }
 
-export async function getUserInfo(username) {
+async function getUserInfo(username) {
     const query = { username: username };
     const userInfo = await collection.findOne(query);
     return userInfo;
 }
 
-export async function createAuth(username, auth) {
+async function createAuth(username, auth) {
     /*let userInfo = await getUserInfo(username);
     userInfo.authToken = auth;
     await replace(userInfo);*/
@@ -62,7 +67,7 @@ export async function createAuth(username, auth) {
       );
 }
 
-export async function verifyAuth(username, auth) {
+async function verifyAuth(username, auth) {
     let userInfo = await getUserInfo(username);
     if (!userInfo) return 0;
     if ( auth == userInfo.authToken ) {
@@ -72,18 +77,18 @@ export async function verifyAuth(username, auth) {
     }
 }
 
-export async function createUser(user){
+async function createUser(user){
     let existingUser = await getUserInfo(user.username);
-    if (existingUser) throw new Error(`The name "${user.username}" is already taken`);
+    if (existingUser) return 0;
     await collection.insertOne(user);
     return user;
 }
 
-export async function replace(userInfo) {
+async function replace(userInfo) {
     await collection.replaceOne({ _id: userInfo._id }, userInfo);
 }
 
-export async function deleteAuth(username) {
+async function deleteAuth(username) {
     /*let userInfo = await getUserInfo(username);
     userInfo.authToken = null;*/
     await collection.updateOne(
@@ -93,8 +98,14 @@ export async function deleteAuth(username) {
     //await replace(userInfo);
 }
 
-export async function getUserByToken(token) {
+async function getUserByToken(token) {
     const query = { authToken: token };
+    const userInfo = await collection.findOne(query);
+    return userInfo;
+}
+
+async function getUserBy(field, token) {
+    const query = { field: token };
     const userInfo = await collection.findOne(query);
     return userInfo;
 }
@@ -155,3 +166,17 @@ async function main() {
 }
 
 main();*/
+
+module.exports = {
+    addHabitByUser,
+    updateHabitByUser,
+    getHabitsByUser,
+    getUserInfo,
+    createAuth,
+    verifyAuth,
+    createUser,
+    replace,
+    deleteAuth,
+    getUserByToken,
+    getUserBy,
+  };

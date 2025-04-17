@@ -14,7 +14,7 @@ const DB = require('./database.js');
 //let nums = [];
 //let username = "";
 //let users = [];
-const authCookieName = 'token';
+const authCookieName = 'authToken';
 
 //Sets port to 3000 if no port is entered
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -36,7 +36,9 @@ async function findUser(field, value) {
     console.log("in findUser function");
     if (!value) return null;
   
-    let user = await DB.getUserByToken(value);
+    let user = await DB.getUserBy(field, value);
+    console.log("User: ", user);
+    console.log("authToken: ", value);
     if (user) {
         return user;
     }
@@ -61,12 +63,12 @@ async function createUserData(username, password) {
     const user = {
         username: username,
         password: passwordHash,
-        token: uuid.v4(),
+        authToken: uuid.v4(),
         habits: [],
     };
     console.log("Going to push new user");
     let userResult = await DB.createUser(user);
-    console.log("Users: ", users);
+    //console.log("Users: ", users);
 
     return userResult;
 }
@@ -95,23 +97,28 @@ apiRouter.post('/auth/create', async (req, res) => {
     } else {
         console.log("Going to create user");
         const user = await createUserData(req.body.userName, req.body.password);
-    
-        setAuthCookie(res, user.token);
+        if (user == 0) {
+            res.send(Error);
+        }
+        else {
+        setAuthCookie(res, user.authToken);
         let username = req.body.userName;
         res.send({ userName: username});
+        }
     }
 });
 
 //login endpoint
 apiRouter.post('/auth/login', async (req, res) => {
+    console.log("In login endpoint");
     let username = req.body.userName;
      const user = await findUser('username', req.body.userName);
     if (user) {
         if (await bcrypt.compare(req.body.password, user.password)) {
             //user.token = uuid.v4();
-            token = uuid.v4();
-            await DB.createAuth(username, token)
-            setAuthCookie(res, token);
+            authToken = uuid.v4();
+            await DB.createAuth(username, authToken)
+            setAuthCookie(res, authToken);
         res.send({ userName: username });
             return;
         }
@@ -121,7 +128,8 @@ apiRouter.post('/auth/login', async (req, res) => {
 
 //logout endpoint
 apiRouter.delete('/auth/logout', async (req, res) => {
-    const user = await findUser('token', req.cookies[authCookieName]);
+    console.log("In Logout Endpoint")
+    const user = await findUser('authToken', req.cookies[authCookieName]);
     if (user) {
         //delete user.token;
         await DB.deleteAuth(user.username)
@@ -133,7 +141,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
 //Middleware to verify that the user is authorized to call an endpoint
 const verifyAuth = async (req, res, next) => {
     console.log("in verification");
-    const user = await findUser('token', req.cookies[authCookieName]);
+    const user = await findUser('authToken', req.cookies[authCookieName]);
     if (user) {
         req.user = user;
         next();
@@ -143,9 +151,11 @@ const verifyAuth = async (req, res, next) => {
 };
 
 //get habits endpoint
-apiRouter.get('/habits', verifyAuth, async (_req, res) => {
+apiRouter.get('/habits', verifyAuth, async (req, res) => {
+    console.log("Get habits endpoint");
     //console.log("Habits to be got: ", habits);
-    const habits = await DB.getHabitsByUser(req.user.username)
+    const habits = await DB.getHabitsByUser(req.user.username);
+    console.log("My habits: ", habits);
     res.send({ habits: habits });
 });
 
@@ -155,7 +165,7 @@ apiRouter.post('/habit', verifyAuth, async (req, res) => {
     const newHabit = req.body;
     //habits.push(newHabit);
     await DB.addHabitByUser(req.user.username, newHabit)
-    console.log("Habits push: ", habits);
+    //console.log("Habits push: ", habits);
     //nums.push(1);
     //console.log(nums)
     const habits = await DB.getHabitsByUser(req.user.username)
