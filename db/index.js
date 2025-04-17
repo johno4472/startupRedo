@@ -10,9 +10,9 @@ const collection = db.collection('habits');
 //i need a few different commands
 
 //add habit by user
-async function addHabitByUser(user, jsonHabit) {
+async function addHabitByUser(username, jsonHabit) {
     //insert
-    let userInfo = await getUserInfo(user);
+    let userInfo = await getUserInfo(username);
     let habits = userInfo.habits;
     habits.push(jsonHabit);
     userInfo.habits = habits;
@@ -20,12 +20,12 @@ async function addHabitByUser(user, jsonHabit) {
 }
 
 //update habit by user
-async function updateHabitByUser(user, jsonHabit) {
-    let userInfo = await getUserInfo(user);
+async function updateHabitByUser(username, jsonHabit) {
+    let userInfo = await getUserInfo(username);
     let habits = userInfo.habits;
     let index = habits.findIndex(h => h.habitName === jsonHabit.habitName);
     if ( index < 0 ) {
-        throw new Error(`Habit "${jsonHabit.habitName}" not found for user ${user}`);
+        throw new Error(`Habit "${jsonHabit.habitName}" not found for user ${username}`);
     }
     habits[index] = jsonHabit;
     userInfo.habits = habits;
@@ -62,7 +62,7 @@ async function verifyAuth(username, auth) {
 
 async function createUser(username, password, auth){
     let existingUser = await getUserInfo(username);
-    if (existingUser) throw new Error(`The name "${user}" is already taken`);
+    if (existingUser) throw new Error(`The name "${username}" is already taken`);
     const user = {
         username: username,
         password: password,
