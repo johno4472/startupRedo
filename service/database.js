@@ -105,8 +105,9 @@ async function getUserByToken(token) {
 }
 
 async function getUserBy(field, token) {
-    const query = { field: token };
+    const query = { [field]: token };
     const userInfo = await collection.findOne(query);
+    console
     return userInfo;
 }
 
