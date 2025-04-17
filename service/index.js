@@ -3,15 +3,17 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js');
+//import { getUserInfo,  } from './database';
 //const { Habit } = require('../src/habit');
 //import { Habit } from '../src/habit.js';
 
 
 // The scores and users are saved in memory and disappear whenever the service is restarted.
-let habits = [];
-let nums = [];
-let username = "";
-let users = [];
+//let habits = [];
+//let nums = [];
+//let username = "";
+//let users = [];
 const authCookieName = 'token';
 
 //Sets port to 3000 if no port is entered
@@ -34,7 +36,11 @@ async function findUser(field, value) {
     console.log("in findUser function");
     if (!value) return null;
   
-    return users.find((u) => u[field] === value);
+    let user = await DB.getUserByToken(value);
+    if (user) {
+        return user;
+    }
+    return false;
 }
   
 // setAuthCookie in the HTTP response
@@ -47,23 +53,24 @@ function setAuthCookie(res, authToken) {
 }
   
 //helper function to create a user
-async function createUser(email, password) {
+async function createUserData(username, password) {
     console.log("About to hash password");
     const passwordHash = await bcrypt.hash(password, 10);
 
     console.log("Going to create new user object");
     const user = {
-        email: email,
+        username: username,
         password: passwordHash,
         token: uuid.v4(),
+        habits: [],
     };
     console.log("Going to push new user");
-    users.push(user);
+    let userResult = await DB.createUser(user);
     console.log("Users: ", users);
 
-    return user;
+    return userResult;
 }
-  
+ /* 
 //helper funciton to update habit data
 async function updateHabits(newHabits) {
     habits = newHabits;
@@ -76,18 +83,18 @@ function appendHabit(newHabit) {
 
     return habits;
 }
-  
+*/  
 
 //create account endpoint
 apiRouter.post('/auth/create', async (req, res) => {
     console.log("In create endpoint");
-    console.log("email: ", req.body.userName);
-    if (await findUser('email', req.body.userName)) {
-        console.log("Can't create because email taken");
-        res.status(409).send({ msg: 'Email in use'});
+    console.log("username: ", req.body.userName);
+    if (await findUser('username', req.body.userName)) {
+        console.log("Can't create because username taken");
+        res.status(409).send({ msg: 'Username in use'});
     } else {
         console.log("Going to create user");
-        const user = await createUser(req.body.userName, req.body.password);
+        const user = await createUserData(req.body.userName, req.body.password);
     
         setAuthCookie(res, user.token);
         let username = req.body.userName;
@@ -98,11 +105,13 @@ apiRouter.post('/auth/create', async (req, res) => {
 //login endpoint
 apiRouter.post('/auth/login', async (req, res) => {
     let username = req.body.userName;
-     const user = await findUser('email', req.body.userName);
+     const user = await findUser('username', req.body.userName);
     if (user) {
         if (await bcrypt.compare(req.body.password, user.password)) {
-            user.token = uuid.v4();
-            setAuthCookie(res, user.token);
+            //user.token = uuid.v4();
+            token = uuid.v4();
+            await DB.createAuth(username, token)
+            setAuthCookie(res, token);
         res.send({ userName: username });
             return;
         }
@@ -114,7 +123,8 @@ apiRouter.post('/auth/login', async (req, res) => {
 apiRouter.delete('/auth/logout', async (req, res) => {
     const user = await findUser('token', req.cookies[authCookieName]);
     if (user) {
-        delete user.token;
+        //delete user.token;
+        await DB.deleteAuth(user.username)
     }
     res.clearCookie(authCookieName);
     res.status(204).end();
@@ -125,6 +135,7 @@ const verifyAuth = async (req, res, next) => {
     console.log("in verification");
     const user = await findUser('token', req.cookies[authCookieName]);
     if (user) {
+        req.user = user;
         next();
     } else {
         res.status(401).send({ msg: 'Unauthorized '});
@@ -132,27 +143,31 @@ const verifyAuth = async (req, res, next) => {
 };
 
 //get habits endpoint
-apiRouter.get('/habits', verifyAuth, (_req, res) => {
+apiRouter.get('/habits', verifyAuth, async (_req, res) => {
     //console.log("Habits to be got: ", habits);
+    const habits = await DB.getHabitsByUser(req.user.username)
     res.send({ habits: habits });
 });
 
 //submit new habit
-apiRouter.post('/habit', verifyAuth, (req, res) => {
+apiRouter.post('/habit', verifyAuth, async (req, res) => {
     console.log("Req body habit: ", req.body);
     const newHabit = req.body;
-    habits.push(newHabit);
+    //habits.push(newHabit);
+    await DB.addHabitByUser(req.user.username, newHabit)
     console.log("Habits push: ", habits);
     //nums.push(1);
     //console.log(nums)
+    const habits = await DB.getHabitsByUser(req.user.username)
     res.send({habits: habits});
 });
 
 //update habit progress
-apiRouter.post('/habits', verifyAuth, (req, res) => {
+apiRouter.post('/habits', verifyAuth, async (req, res) => {
     console.log("In add habits endpoint");
-    habits = req.body;
-    res.send(habits);
+    //habits = req.body;
+    await DB.updateHabitByUser(req.user.username, req.body);
+    res.send(DB.getHabitsByUser(req.user.username));
 });
 
 //default error handler

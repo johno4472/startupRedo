@@ -1,4 +1,4 @@
 .vscode/
 .DS_Store
 node_modules
-db/dbConfig.json
+service/dbConfig.json
