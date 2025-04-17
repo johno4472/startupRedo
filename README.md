@@ -68,7 +68,7 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
 
 ## 🚀 HTML deliverable
 
@@ -124,11 +124,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **User registration** - I did not complete this part of the deliverable.
-- [ ] **User login and logout** - I did not complete this part of the deliverable.
-- [ ] **Stores data in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Stores credentials in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Restricts functionality based on authentication** - I did not complete this part of the deliverable.
+- [x] **User registration** - Registering makes a new entry in mongo
+- [x] **User login and logout** - Login and logout possible by accessing mongo.
+- [x] **Stores data in MongoDB** - All of it is in Mongo.
+- [x] **Stores credentials in MongoDB** - Checks mongo for habits.
+- [x] **Restricts functionality based on authentication** - Checks mongo for authToken.
 
 ## 🚀 WebSocket deliverable
 
