@@ -24,6 +24,9 @@ async function updateHabitByUser(user, jsonHabit) {
     let userInfo = await getUserInfo(user);
     let habits = userInfo.habits;
     let index = habits.findIndex(h => h.habitName === jsonHabit.habitName);
+    if ( index < 0 ) {
+        throw new Error(`Habit "${jsonHabit.habitName}" not found for user ${user}`);
+    }
     habits[index] = jsonHabit;
     userInfo.habits = habits;
     await replace(userInfo);
@@ -37,7 +40,7 @@ async function getHabitsByUser(username) {
 
 async function getUserInfo(username) {
     const query = { username: username };
-    const userInfo = collection.findOne(query);
+    const userInfo = await collection.findOne(query);
     return userInfo;
 }
 
@@ -49,7 +52,8 @@ async function createAuth(username, password, auth) {
 
 async function verifyAuth(username, auth) {
     let userInfo = await getUserInfo(username);
-    if ( auth == userInfo.auth ) {
+    if (!userInfo) return 0;
+    if ( auth == userInfo.authToken ) {
         return 1;
     } else {
         return 0;
@@ -57,11 +61,13 @@ async function verifyAuth(username, auth) {
 }
 
 async function createUser(username, password, auth){
+    let existingUser = await getUserInfo(username);
+    if (existingUser) throw new Error(`The name "${user}" is already taken`);
     const user = {
         username: username,
         password: password,
         authToken: auth,
-        habits: {},
+        habits: [],
     }
     await collection.insertOne(user);
 }
