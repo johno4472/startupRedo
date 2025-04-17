@@ -129,6 +129,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Stores data in MongoDB** - All of it is in Mongo.
 - [x] **Stores credentials in MongoDB** - Checks mongo for habits.
 - [x] **Restricts functionality based on authentication** - Checks mongo for authToken.
+(If you go to my index.js file in the service folder, you'll see many calls to my data access methods.
+You can see those methods in the database.js file also in the same service folder)
 
 ## 🚀 WebSocket deliverable
 
